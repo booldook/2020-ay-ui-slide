@@ -1,6 +1,6 @@
 .wrapper {max-width: 720px; margin: 0 auto;}
 
-.stage {position: relative; overflow: hidden;}
+.stage {position: relative; overflow: ;}
 .slides {display: flex; position: relative;}
 .slide {flex: 100% 0 0;}
 .bt-page {position: absolute; font-size: 10vw; color: #fff; transition: all 0.5s; top: calc(50% - 5vw); cursor: pointer; opacity: 0.3;}

@@ -7,11 +7,13 @@ var datas = [
 	{id: 5, src: "./img/p5.png", alt: "배너5", link: "#"}
 ];
 
+
 /* Slide 만드는 함수 */
 function slideMaker($obj, dt, clsName, isClone) {
 	var html = '';
 	for(var i in dt) {
 		html += '<div class="'+clsName+'">';
+		console.log(dt[i].src);
 		html += '<a href="'+dt[i].link+'">';
 		html += '<img src="'+dt[i].src+'" alt="'+dt[i].id+'" class="img">';
 		html += '</a>';
