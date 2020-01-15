@@ -155,16 +155,21 @@ function pagerMaker($obj, dt, clsName) {
 	$prev.click(prevSlide);
 	$next.click(nextSlide);
 	$pager.click(movingSlide);
-	$(window).resize(resizeSlide);
+	console.log("이미지로딩전:" + $stage.outerHeight());
+	$stage.imagesLoaded(function(){
+		$(window).resize(resizeSlide).trigger("resize");
+		console.log("이미지로딩후:" + $stage.outerHeight());
+	});
 	pagerChg();
 	
 	/* 함수 */
 	function ani() {
-		$slides.stop().animate({"left": -now*100+"%"}, speed);
+		$slides.stop().animate({"top": -now*100+"%"}, speed);
 		pagerChg();
 	}
 	function resizeSlide() {
-		console.log(	$slide.outerHeight()	);
+		var hei = $slide.outerHeight();
+		$stage.outerHeight(hei);
 	}
 	function pagerChg() {
 		$pager.removeClass("active");
@@ -198,9 +203,5 @@ function pagerMaker($obj, dt, clsName) {
 		ani();
 	}
 })();
-
-
-
-
 
 
