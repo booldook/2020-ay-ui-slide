@@ -19,6 +19,7 @@ function slideMaker($obj, dt, clsName, isClone) {
 	}
 	$obj.html(html);
 	if(isClone) $obj.append(	$("."+clsName).eq(0).clone()	);
+	last = $("."+clsName).length;
 }
 
 /* Pager 만드는 함수 */
@@ -33,7 +34,7 @@ function pagerMaker($obj, dt, clsName) {
 }
 
 function ani() {
-
+	$slides.stop().animate({"left": -now*100+"%"}, speed);
 }
 
 /* 프로그램 시작 */
@@ -47,6 +48,7 @@ var interval;
 var speed = 500;
 var delay = 4000;
 var now = 0;
+var last;
 
 /* 객체(슬라이드 및 페이저) 생성 */
 slideMaker($slides, datas, "slide", true);
@@ -54,9 +56,10 @@ pagerMaker($pager, datas, "pager");
 
 
 /* 이벤트선언 */
-interval = setInterval(intervalFn, delay);
+var interval = setInterval(intervalFn, delay);
 
 /* 함수 */
 function intervalFn() {
-	console.log("실행");
+
+	ani();
 }
