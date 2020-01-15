@@ -1,8 +1,6 @@
+/* 공통 */
 .wrapper {max-width: 720px; margin: 0 auto;}
-
-.stage {position: relative; overflow: ;}
-.slides {display: flex; position: relative;}
-.slide {flex: 100% 0 0;}
+.stage {position: relative; overflow: hidden; margin: 50px 0;}
 .bt-page {position: absolute; font-size: 10vw; color: #fff; transition: all 0.5s; top: calc(50% - 5vw); cursor: pointer; opacity: 0.3;}
 .bt-page:hover {text-shadow: 0 0 1vw rgba(0,0,0,0.7); opacity: 1;}
 .prev {left: 1vw;}
@@ -10,3 +8,11 @@
 .pagers {width: 100%; position: absolute; display: flex; justify-content: center; bottom: 10px;}
 .pager {padding: 4px; color: #fff; font-size: 2vw; cursor: pointer;}
 .pager.active {color: darkred;}
+
+/* 가로형 */
+#stage1 .slides {display: flex; position: relative;}
+#stage1 .slide {flex: 100% 0 0;}
+
+/* 세로형 */
+#stage2 .slides {position: relative;}
+#stage2 .slide {}

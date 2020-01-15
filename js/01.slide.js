@@ -1,3 +1,19 @@
+/*
+$(window).resize(function(){
+	console.log("hi~");
+});
+
+var wid = [];
+wid[0] = $(".box").width();
+wid[1] = $(".box").innerWidth();
+wid[2] = $(".box").outerWidth();
+wid[3] = $(".box").outerWidth(true);
+console.log(wid);
+
+// $(객체).resize(function(){});
+*/
+
+
 /* Data */
 var datas = [
 	{id: 1, src: "./img/p1.png", alt: "배너1", link: "#"},
@@ -13,7 +29,6 @@ function slideMaker($obj, dt, clsName, isClone) {
 	var html = '';
 	for(var i in dt) {
 		html += '<div class="'+clsName+'">';
-		console.log(dt[i].src);
 		html += '<a href="'+dt[i].link+'">';
 		html += '<img src="'+dt[i].src+'" alt="'+dt[i].id+'" class="img">';
 		html += '</a>';
@@ -21,8 +36,6 @@ function slideMaker($obj, dt, clsName, isClone) {
 	}
 	$obj.html(html);
 	if(isClone) $obj.append(	$("."+clsName).eq(0).clone()	);
-	$slide = $("."+clsName);
-	last = $slide.length;
 }
 
 /* Pager 만드는 함수 */
@@ -34,70 +47,160 @@ function pagerMaker($obj, dt, clsName) {
 		html += '</div>';
 	}
 	$obj.html(html);
-	$pager = $("."+clsName);
 }
 
-function ani() {
-	$slides.stop().animate({"left": -now*100+"%"}, speed);
-	pagerChg();
-}
+
 
 /* 프로그램 시작 */
 
-/* jQuery객체선언 및 전역변수 선언 */
-var $stage = $(".stage");
-var $slides =  $stage.find(".slides");
-var $pagers = $stage.find(".pagers");
-var $prev = $stage.find(".prev");
-var $next = $stage.find(".next");
-var interval;
-var speed = 500;
-var delay = 4000;
-var now = 0;
-var last, $slide, $pager;
-
-/* 객체(슬라이드 및 페이저) 생성 */
-slideMaker($slides, datas, "slide", true);
-pagerMaker($pagers, datas, "pager");
-
-/* 이벤트선언 */
-var interval = setInterval(intervalSlide, delay);
-$stage.mouseenter(pauseSlide);
-$stage.mouseleave(playSlide);
-$prev.click(prevSlide);
-$next.click(nextSlide);
-$pager.click(movingSlide);
-pagerChg();
-
-/* 함수 */
-function pagerChg() {
-	$pager.removeClass("active");
-	$pager.eq(now).addClass("active");
-	if(now == last - 1) $pager.eq(0).addClass("active");
-}
-function movingSlide() {
-	now = $(this).index();
-	ani();
-}
-function nextSlide() {
-	if(now < last - 2) now++;
-	ani();
-}
-function prevSlide() {
-	if(now > 0) now--;
-	ani();
-}
-function playSlide() {
-	interval = setInterval(intervalSlide, delay);
-}
-function pauseSlide() {
-	clearInterval(interval);
-}
-function intervalSlide() {
-	if(now == last - 1) {
-		now = 0;
-		$slides.css({"left": 0});
+/* 가로형 */
+(function(){
+	/* jQuery객체선언 및 전역변수 선언 */
+	var $stage = $("#stage1");
+	var $slides =  $stage.find(".slides");
+	var $pagers = $stage.find(".pagers");
+	var $prev = $stage.find(".prev");
+	var $next = $stage.find(".next");
+	var interval;
+	var speed = 500;
+	var delay = 4000;
+	var now = 0;
+	var last, $slide, $pager;
+	
+	/* 객체(슬라이드 및 페이저) 생성 */
+	slideMaker($slides, datas, "slide", true);
+	pagerMaker($pagers, datas, "pager");
+	
+	$pager = $stage.find(".pager");
+	$slide = $slides.find(".slide");
+	last = $slide.length;
+	
+	/* 이벤트선언 */
+	var interval = setInterval(intervalSlide, delay);
+	$stage.mouseenter(pauseSlide);
+	$stage.mouseleave(playSlide);
+	$prev.click(prevSlide);
+	$next.click(nextSlide);
+	$pager.click(movingSlide);
+	$(window).resize(resizeSlide);
+	pagerChg();
+	
+	/* 함수 */
+	function ani() {
+		$slides.stop().animate({"left": -now*100+"%"}, speed);
+		pagerChg();
 	}
-	now++;
-	ani();
-}
+	function resizeSlide() {
+		console.log(	$slide.outerHeight()	);
+	}
+	function pagerChg() {
+		$pager.removeClass("active");
+		$pager.eq(now).addClass("active");
+		if(now == last - 1) $pager.eq(0).addClass("active");
+	}
+	function movingSlide() {
+		now = $(this).index();
+		ani();
+	}
+	function nextSlide() {
+		if(now < last - 2) now++;
+		ani();
+	}
+	function prevSlide() {
+		if(now > 0) now--;
+		ani();
+	}
+	function playSlide() {
+		interval = setInterval(intervalSlide, delay);
+	}
+	function pauseSlide() {
+		clearInterval(interval);
+	}
+	function intervalSlide() {
+		if(now == last - 1) {
+			now = 0;
+			$slides.css({"left": 0});
+		}
+		now++;
+		ani();
+	}
+})();
+
+/* 세로형 */
+(function(){
+	/* jQuery객체선언 및 전역변수 선언 */
+	var $stage = $("#stage2");
+	var $slides =  $stage.find(".slides");
+	var $pagers = $stage.find(".pagers");
+	var $prev = $stage.find(".prev");
+	var $next = $stage.find(".next");
+	var interval;
+	var speed = 500;
+	var delay = 4000;
+	var now = 0;
+	var last, $slide, $pager;
+	
+	/* 객체(슬라이드 및 페이저) 생성 */
+	slideMaker($slides, datas, "slide", true);
+	pagerMaker($pagers, datas, "pager");
+	
+	$pager = $stage.find(".pager");
+	$slide = $slides.find(".slide");
+	last = $slide.length;
+	
+	/* 이벤트선언 */
+	var interval = setInterval(intervalSlide, delay);
+	$stage.mouseenter(pauseSlide);
+	$stage.mouseleave(playSlide);
+	$prev.click(prevSlide);
+	$next.click(nextSlide);
+	$pager.click(movingSlide);
+	$(window).resize(resizeSlide);
+	pagerChg();
+	
+	/* 함수 */
+	function ani() {
+		$slides.stop().animate({"left": -now*100+"%"}, speed);
+		pagerChg();
+	}
+	function resizeSlide() {
+		console.log(	$slide.outerHeight()	);
+	}
+	function pagerChg() {
+		$pager.removeClass("active");
+		$pager.eq(now).addClass("active");
+		if(now == last - 1) $pager.eq(0).addClass("active");
+	}
+	function movingSlide() {
+		now = $(this).index();
+		ani();
+	}
+	function nextSlide() {
+		if(now < last - 2) now++;
+		ani();
+	}
+	function prevSlide() {
+		if(now > 0) now--;
+		ani();
+	}
+	function playSlide() {
+		interval = setInterval(intervalSlide, delay);
+	}
+	function pauseSlide() {
+		clearInterval(interval);
+	}
+	function intervalSlide() {
+		if(now == last - 1) {
+			now = 0;
+			$slides.css({"left": 0});
+		}
+		now++;
+		ani();
+	}
+})();
+
+
+
+
+
+
