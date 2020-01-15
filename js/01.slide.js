@@ -19,7 +19,8 @@ function slideMaker($obj, dt, clsName, isClone) {
 	}
 	$obj.html(html);
 	if(isClone) $obj.append(	$("."+clsName).eq(0).clone()	);
-	last = $("."+clsName).length;
+	$slide = $("."+clsName);
+	last = $slide.length;
 }
 
 /* Pager 만드는 함수 */
@@ -31,10 +32,12 @@ function pagerMaker($obj, dt, clsName) {
 		html += '</div>';
 	}
 	$obj.html(html);
+	$pager = $("."+clsName);
 }
 
 function ani() {
 	$slides.stop().animate({"left": -now*100+"%"}, speed);
+	pagerChg();
 }
 
 /* 프로그램 시작 */
@@ -42,24 +45,55 @@ function ani() {
 /* jQuery객체선언 및 전역변수 선언 */
 var $stage = $(".stage");
 var $slides =  $stage.find(".slides");
-var $slide =  $stage.find(".slide");
-var $pager = $stage.find(".pagers");
+var $pagers = $stage.find(".pagers");
+var $prev = $stage.find(".prev");
+var $next = $stage.find(".next");
 var interval;
 var speed = 500;
 var delay = 4000;
 var now = 0;
-var last;
+var last, $slide, $pager;
 
 /* 객체(슬라이드 및 페이저) 생성 */
 slideMaker($slides, datas, "slide", true);
-pagerMaker($pager, datas, "pager");
-
+pagerMaker($pagers, datas, "pager");
 
 /* 이벤트선언 */
-var interval = setInterval(intervalFn, delay);
+var interval = setInterval(intervalSlide, delay);
+$stage.mouseenter(pauseSlide);
+$stage.mouseleave(playSlide);
+$prev.click(prevSlide);
+$next.click(nextSlide);
+$pager.click(movingSlide);
 
 /* 함수 */
-function intervalFn() {
-
+function pagerChg() {
+	$pager.removeClass("active");
+	$pager.eq(now).addClass("active");
+}
+function movingSlide() {
+	now = $(this).index();
+	ani();
+}
+function nextSlide() {
+	if(now < last - 2) now++;
+	ani();
+}
+function prevSlide() {
+	if(now > 0) now--;
+	ani();
+}
+function playSlide() {
+	interval = setInterval(intervalSlide, delay);
+}
+function pauseSlide() {
+	clearInterval(interval);
+}
+function intervalSlide() {
+	if(now == last - 1) {
+		now = 0;
+		$slides.css({"left": 0});
+	}
+	now++;
 	ani();
 }
