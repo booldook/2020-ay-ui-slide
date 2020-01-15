@@ -1,0 +1,12 @@
+.wrapper {max-width: 720px; margin: 0 auto;}
+
+.stage {position: relative; border: 10px solid red; overflow: ;}
+.slides {display: flex; position: relative;}
+.slide {flex: 100% 0 0;}
+.bt-page {position: absolute; font-size: 10vw; color: #fff; transition: all 0.5s; top: calc(50% - 5vw); cursor: pointer; opacity: 0.3;}
+.bt-page:hover {text-shadow: 0 0 1vw rgba(0,0,0,0.7); opacity: 1;}
+.prev {left: 1vw;}
+.next {right: 1vw;}
+.pagers {width: 100%; position: absolute; display: flex; justify-content: center; bottom: 10px;}
+.pager {padding: 4px; color: #fff; font-size: 2vw; cursor: pointer;}
+.pager.active {color: darkred;}

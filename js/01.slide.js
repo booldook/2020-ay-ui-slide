@@ -6,21 +6,26 @@ var datas = [
 	{id: 5, src: "./img/p5.png", alt: "배너5", link: "#"}
 ];
 
-function slideMaker(train, dt) {
-	console.log(dt);
+function slideMaker($obj, dt, clsName) {
 	var html = '';
 	for(var i in dt) {
-		html += '<div>';
+		html += '<div class="'+clsName+'">';
 		html += '<a href="'+dt[i].link+'">';
 		html += '<img src="'+dt[i].src+'" alt="'+dt[i].id+'" class="img">';
 		html += '</a>';
 		html += '</div>';
 	}
-	train.html(html);
+	$obj.html(html);
 }
 
-function pagerMaker() {
-
+function pagerMaker($obj, dt, clsName) {
+	var html = '';
+	for(var i in dt) {
+		html += '<div class="'+clsName+'">';
+		html += '<span>●</span>';
+		html += '</div>';
+	}
+	$obj.html(html);
 }
 
 function ani() {
@@ -30,8 +35,10 @@ function ani() {
 var $stage = $(".stage");
 var $slides =  $stage.find(".slides");
 var $slide =  $stage.find(".slide");
+var $pager = $stage.find(".pagers");
 
-slideMaker($slides, datas);
+slideMaker($slides, datas, "slide");
+pagerMaker($pager, datas, "pager");
 
 
 
