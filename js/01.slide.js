@@ -65,11 +65,13 @@ $stage.mouseleave(playSlide);
 $prev.click(prevSlide);
 $next.click(nextSlide);
 $pager.click(movingSlide);
+pagerChg();
 
 /* 함수 */
 function pagerChg() {
 	$pager.removeClass("active");
 	$pager.eq(now).addClass("active");
+	if(now == last - 1) $pager.eq(0).addClass("active");
 }
 function movingSlide() {
 	now = $(this).index();
