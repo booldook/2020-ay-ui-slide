@@ -6,7 +6,7 @@ var datas = [
 	{id: 5, src: "./img/p5.png", alt: "배너5", link: "#"}
 ];
 
-function slideMaker($obj, dt, clsName) {
+function slideMaker($obj, dt, clsName, isClone) {
 	var html = '';
 	for(var i in dt) {
 		html += '<div class="'+clsName+'">';
@@ -16,6 +16,7 @@ function slideMaker($obj, dt, clsName) {
 		html += '</div>';
 	}
 	$obj.html(html);
+	if(isClone) $obj.append(	$("."+clsName).eq(0).clone()	);
 }
 
 function pagerMaker($obj, dt, clsName) {
@@ -37,7 +38,7 @@ var $slides =  $stage.find(".slides");
 var $slide =  $stage.find(".slide");
 var $pager = $stage.find(".pagers");
 
-slideMaker($slides, datas, "slide");
+slideMaker($slides, datas, "slide", true);
 pagerMaker($pager, datas, "pager");
 
 
