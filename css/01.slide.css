@@ -14,6 +14,8 @@
 #stage1 .slide {flex: 100% 0 0;}
 
 /* 세로형 */
-#stage2 {}
 #stage2 .slides {position: relative;}
-#stage2 .slide {}
+
+/* 페이드형 */
+#stage3 .slides {position: relative;}
+#stage3 .slide {width: 100%; position: absolute; top: 0; left: 0;}
