@@ -1,0 +1,9 @@
+.wrapper {
+	width: 720px;
+	margin: auto;
+}
+.stage {
+	position: relative;
+}
+.slide-wrap { width: 500%; display: flex; position: relative;}
+.slide {width: 20%;}
